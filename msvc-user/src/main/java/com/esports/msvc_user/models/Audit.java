@@ -1,4 +1,4 @@
-package com.esports.msvc_prize.models;
+package com.esports.msvc_user.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
