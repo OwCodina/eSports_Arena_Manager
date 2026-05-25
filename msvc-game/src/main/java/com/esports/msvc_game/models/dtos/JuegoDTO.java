@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * DTO que expone los datos de un Juego hacia otros microservicios.
- * Usado por tournament-service, team-service y match-service via Feign.
- */
+
 @Getter @Setter @NoArgsConstructor
 public class JuegoDTO {
     private Long juegoId;
