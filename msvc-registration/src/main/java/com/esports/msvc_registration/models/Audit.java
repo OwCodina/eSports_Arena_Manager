@@ -1,4 +1,4 @@
-package com.esports.msvc_user.models;
+package com.esports.msvc_registration.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Embeddable
 @Getter @Setter @NoArgsConstructor @ToString
 public class Audit {
-
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

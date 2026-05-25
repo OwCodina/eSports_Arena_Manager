@@ -1,13 +1,9 @@
-package com.esports.msvc_prize.models.dtos;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+package com.esports.msvc_registration.models.dtos;
+import lombok.*;
 import java.time.LocalDate;
-
 @Getter @Setter @NoArgsConstructor
 public class TorneoDTO {
+
     private Long torneoId;
     private String nombre;
     private Long juegoId;
@@ -16,5 +12,4 @@ public class TorneoDTO {
     private LocalDate fechaCierreInscripcion;
     private Integer cupoMaximo;
     private String estado;
-    private String modalidad;
-}
+    private String modalidad; }
