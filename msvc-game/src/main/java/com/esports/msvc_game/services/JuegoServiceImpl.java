@@ -2,6 +2,8 @@ package com.esports.msvc_game.services;
 
 import com.esports.msvc_game.exceptions.GameException;
 import com.esports.msvc_game.models.Juego;
+import com.esports.msvc_game.models.dtos.JuegoRequestDTO;
+import com.esports.msvc_game.models.dtos.JuegoResponseDTO;
 import com.esports.msvc_game.repositories.JuegoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,24 +21,41 @@ public class JuegoServiceImpl implements JuegoService {
     @Autowired
     private JuegoRepository juegoRepository;
 
+    // ── Mapper ───────────────────────────────────────────────────
+    private JuegoResponseDTO toResponse(Juego j) {
+        JuegoResponseDTO dto = new JuegoResponseDTO();
+        dto.setJuegoId(j.getJuegoId());
+        dto.setNombre(j.getNombre());
+        dto.setGenero(j.getGenero());
+        dto.setModalidad(j.getModalidad());
+        dto.setJugadoresPorEquipo(j.getJugadoresPorEquipo());
+        dto.setEstado(j.getEstado());
+        if (j.getAudit() != null) {
+            dto.setCreatedAt(j.getAudit().getCreatedAt());
+            dto.setUpdatedAt(j.getAudit().getUpdatedAt());
+        }
+        return dto;
+    }
+
+    // ── Service methods ──────────────────────────────────────────
     @Transactional(readOnly = true)
     @Override
-    public List<Juego> findAll() {
+    public List<JuegoResponseDTO> findAll() {
         log.info("Listando todos los juegos");
-        return this.juegoRepository.findAll();
+        return this.juegoRepository.findAll().stream().map(this::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Juego> findAllActivos() {
+    public List<JuegoResponseDTO> findAllActivos() {
         log.info("Listando juegos con estado ACTIVO");
-        return this.juegoRepository.findByEstado("ACTIVO");
+        return this.juegoRepository.findByEstado("ACTIVO").stream().map(this::toResponse).toList();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Juego findById(Long id) {
-        return this.juegoRepository.findById(id).orElseThrow(() -> {
+    public JuegoResponseDTO findById(Long id) {
+        return this.juegoRepository.findById(id).map(this::toResponse).orElseThrow(() -> {
             log.error("Juego con id {} no encontrado", id);
             return new GameException("Juego con id: " + id + " no encontrado");
         });
@@ -44,57 +63,49 @@ public class JuegoServiceImpl implements JuegoService {
 
     @Transactional
     @Override
-    public Juego save(Juego juego) {
-        // Regla: nombre único
-        if (this.juegoRepository.findByNombre(juego.getNombre()).isPresent()) {
-            log.warn("Intento de crear juego con nombre duplicado: {}", juego.getNombre());
-            throw new GameException("Ya existe un juego con el nombre: " + juego.getNombre());
+    public JuegoResponseDTO save(JuegoRequestDTO dto) {
+        if (this.juegoRepository.findByNombre(dto.getNombre()).isPresent()) {
+            log.warn("Intento de crear juego con nombre duplicado: {}", dto.getNombre());
+            throw new GameException("Ya existe un juego con el nombre: " + dto.getNombre());
         }
-        // Regla: jugadoresPorEquipo > 0 (ya validado por @Min, pero doble check explícito)
-        if (juego.getJugadoresPorEquipo() == null || juego.getJugadoresPorEquipo() < 1) {
-            throw new GameException("La cantidad de jugadores por equipo debe ser mayor a 0");
-        }
+        Juego juego = new Juego();
+        juego.setNombre(dto.getNombre());
+        juego.setGenero(dto.getGenero());
+        juego.setModalidad(dto.getModalidad());
+        juego.setJugadoresPorEquipo(dto.getJugadoresPorEquipo());
         juego.setEstado("ACTIVO");
         Juego guardado = this.juegoRepository.save(juego);
         log.info("Juego creado: id={}, nombre={}", guardado.getJuegoId(), guardado.getNombre());
-        return guardado;
+        return toResponse(guardado);
     }
 
     @Transactional
     @Override
-    public Juego updateById(Long id, Juego juego) {
+    public JuegoResponseDTO updateById(Long id, JuegoRequestDTO dto) {
         return this.juegoRepository.findById(id).map(existing -> {
-            existing.setModalidad(juego.getModalidad());
-            existing.setGenero(juego.getGenero());
-            existing.setJugadoresPorEquipo(juego.getJugadoresPorEquipo());
-            // El nombre solo se actualiza si viene distinto y no existe ya
-            if (juego.getNombre() != null && !juego.getNombre().equals(existing.getNombre())) {
-                if (this.juegoRepository.findByNombre(juego.getNombre()).isPresent()) {
-                    throw new GameException("Ya existe un juego con el nombre: " + juego.getNombre());
+            if (dto.getNombre() != null && !dto.getNombre().equals(existing.getNombre())) {
+                if (this.juegoRepository.findByNombre(dto.getNombre()).isPresent()) {
+                    throw new GameException("Ya existe un juego con el nombre: " + dto.getNombre());
                 }
-                existing.setNombre(juego.getNombre());
+                existing.setNombre(dto.getNombre());
             }
+            if (dto.getGenero() != null)             existing.setGenero(dto.getGenero());
+            if (dto.getModalidad() != null)           existing.setModalidad(dto.getModalidad());
+            if (dto.getJugadoresPorEquipo() != null)  existing.setJugadoresPorEquipo(dto.getJugadoresPorEquipo());
             Juego actualizado = this.juegoRepository.save(existing);
-            log.info("Juego actualizado: id={}, nombre={}", actualizado.getJuegoId(), actualizado.getNombre());
-            return actualizado;
-        }).orElseThrow(() -> {
-            log.error("Intento de actualizar juego inexistente, id={}", id);
-            return new GameException("Juego con id: " + id + " no encontrado");
-        });
+            log.info("Juego actualizado: id={}", actualizado.getJuegoId());
+            return toResponse(actualizado);
+        }).orElseThrow(() -> new GameException("Juego con id: " + id + " no encontrado"));
     }
 
     @Transactional
     @Override
-    public Juego desactivar(Long id) {
+    public JuegoResponseDTO desactivar(Long id) {
         return this.juegoRepository.findById(id).map(existing -> {
-            // Regla: juego inactivo no permite nuevos torneos (el estado lo bloquea en tournament-service)
             existing.setEstado("INACTIVO");
             Juego desactivado = this.juegoRepository.save(existing);
-            log.info("Juego desactivado: id={}, nombre={}", desactivado.getJuegoId(), desactivado.getNombre());
-            return desactivado;
-        }).orElseThrow(() -> {
-            log.error("Intento de desactivar juego inexistente, id={}", id);
-            return new GameException("Juego con id: " + id + " no encontrado");
-        });
+            log.info("Juego desactivado: id={}", desactivado.getJuegoId());
+            return toResponse(desactivado);
+        }).orElseThrow(() -> new GameException("Juego con id: " + id + " no encontrado"));
     }
 }
