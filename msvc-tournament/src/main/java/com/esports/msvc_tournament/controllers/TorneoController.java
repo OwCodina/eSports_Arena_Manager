@@ -44,6 +44,11 @@ public class TorneoController {
         return ResponseEntity.ok(torneoService.updateById(id, dto));
     }
 
+    @PatchMapping("/{id}/abrir")
+    public ResponseEntity<TorneoResponseDTO> abrir(@PathVariable Long id) {
+        return ResponseEntity.ok(torneoService.abrir(id));
+    }
+
     @PatchMapping("/{id}/cancelar")
     public ResponseEntity<TorneoResponseDTO> cancelar(@PathVariable Long id) {
         return ResponseEntity.ok(torneoService.cancelar(id));

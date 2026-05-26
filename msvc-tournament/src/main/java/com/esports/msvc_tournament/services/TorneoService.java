@@ -12,5 +12,6 @@ public interface TorneoService {
     TorneoResponseDTO updateById(Long id, TorneoRequestDTO dto);
     TorneoResponseDTO cancelar(Long id);
     TorneoResponseDTO cerrar(Long id);
+    TorneoResponseDTO abrir(Long id)    ;
     boolean estaAbierto(Long id);
 }

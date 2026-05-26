@@ -48,8 +48,10 @@ public class EquipoServiceImpl implements EquipoService {
         try { juego = gameClient.findById(dto.getJuegoPrincipalId()); } catch (Exception e) { throw new TeamException("No se pudo verificar el juego con id: " + dto.getJuegoPrincipalId()); }
         if (!"ACTIVO".equals(juego.getEstado())) throw new TeamException("El juego '" + juego.getNombre() + "' no está ACTIVO.");
         Equipo equipo = new Equipo();
-        equipo.setNombre(dto.getNombre()); equipo.setCapitanId(dto.getCapitanId());
-        equipo.setJuegoPrincipalId(dto.getJuegoPrincipalId()); equipo.setEstado("ACTIVO");
+        equipo.setNombre(dto.getNombre());
+        equipo.setCapitanId(dto.getCapitanId());
+        equipo.setJuegoPrincipalId(dto.getJuegoPrincipalId());
+        equipo.setEstado("ACTIVO");
         Equipo guardado = equipoRepository.save(equipo);
         log.info("Equipo creado: id={}", guardado.getEquipoId());
         return toResponse(guardado);
@@ -91,7 +93,9 @@ public class EquipoServiceImpl implements EquipoService {
         if (miembroEquipoRepository.findByEquipoIdAndUsuarioId(equipoId, dto.getUsuarioId()).isPresent())
             throw new TeamException("El usuario con id: " + dto.getUsuarioId() + " ya es miembro del equipo.");
         MiembroEquipo m = new MiembroEquipo();
-        m.setEquipoId(equipoId); m.setUsuarioId(dto.getUsuarioId()); m.setRolDentroEquipo(dto.getRolDentroEquipo());
+        m.setEquipoId(equipoId);
+        m.setUsuarioId(dto.getUsuarioId());
+        m.setRolDentroEquipo(dto.getRolDentroEquipo());
         log.info("Miembro agregado: usuarioId={} al equipoId={}", dto.getUsuarioId(), equipoId);
         return miembroEquipoRepository.save(m);
     }

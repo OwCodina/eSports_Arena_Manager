@@ -125,11 +125,23 @@ public class TorneoServiceImpl implements TorneoService {
             return toResponse(torneoRepository.save(existing));
         }).orElseThrow(() -> new TournamentException("Torneo con id: " + id + " no encontrado"));
     }
+
+    @Transactional
+    @Override
+    public TorneoResponseDTO abrir(Long id) {
+        return torneoRepository.findById(id).map(existing -> {
+            if ("ABIERTO".equals(existing.getEstado()) || "CANCELADO".equals(existing.getEstado()))
+                throw new TournamentException("No se puede abrir un torneo con estado: " + existing.getEstado());
+            existing.setEstado("ABIERTO");
+            return toResponse(torneoRepository.save(existing));
+        }).orElseThrow(() -> new TournamentException("Torneo con id: " + id + " no encontrado"));
+    }
+
     @Transactional
     @Override
     public TorneoResponseDTO cerrar(Long id) {
         return torneoRepository.findById(id).map(existing -> {
-            if ("CANCELADO".equals(existing.getEstado()) || "FINALIZADO".equals(existing.getEstado()))
+            if ("CANCELADO".equals(existing.getEstado()) || "CERRADO".equals(existing.getEstado()))
                 throw new TournamentException("No se puede cerrar un torneo con estado: " + existing.getEstado());
             existing.setEstado("CERRADO");
             return toResponse(torneoRepository.save(existing));
