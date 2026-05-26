@@ -10,11 +10,15 @@ import java.util.Optional;
 @Repository
 public interface RankingRepository extends JpaRepository<Ranking, Long> {
 
+
     List<Ranking> findByTorneoIdOrderByPosicionAsc(Long torneoId);
+
 
     Optional<Ranking> findByTorneoIdAndParticipanteId(Long torneoId, Long participanteId);
 
+
     List<Ranking> findByTorneoIdOrderByPuntosDescDiferenciaDesc(Long torneoId);
+
 
     void deleteByTorneoId(Long torneoId);
 }
