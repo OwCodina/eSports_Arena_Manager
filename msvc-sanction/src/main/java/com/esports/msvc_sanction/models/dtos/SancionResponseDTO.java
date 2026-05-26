@@ -2,7 +2,9 @@ package com.esports.msvc_sanction.models.dtos;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class SancionResponseDTO {
     private Long sancionId;
     private Long usuarioId;

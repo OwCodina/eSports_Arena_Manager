@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Map;
 
 
-@FeignClient(name = "msvc-team", url = "${msvc.team.url}")
+@FeignClient(name = "msvc-team", url = "http://localhost:8014")
 public interface TeamClient {
 
     @GetMapping("/api/v1/equipos/{id}/esta-activo")

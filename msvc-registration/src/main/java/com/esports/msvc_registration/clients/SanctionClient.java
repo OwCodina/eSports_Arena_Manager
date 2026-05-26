@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Map;
 
 
-@FeignClient(name = "msvc-sanction", url = "${msvc.sanction.url}")
+@FeignClient(name = "msvc-sanction", url = "http://localhost:8013")
 public interface SanctionClient {
 
     @GetMapping("/api/v1/sanciones/usuario/{usuarioId}/tiene-activa")
