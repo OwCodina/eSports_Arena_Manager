@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name = "msvc-match", url = "${msvc.match.url}")
+@FeignClient(name = "msvc-match", url = "http://localhost:8016")
 public interface MatchClient {
 
     @GetMapping("/api/v1/partidas/{id}")

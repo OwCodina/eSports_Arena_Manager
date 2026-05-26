@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "msvc-game", url = "${msvc.game.url}")
+@FeignClient(name = "msvc-game", url = "http://localhost:8010")
 public interface GameClient {
 
     @GetMapping("/api/v1/juegos/{id}")
