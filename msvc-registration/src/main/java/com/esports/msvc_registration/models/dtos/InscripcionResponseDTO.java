@@ -1,7 +1,10 @@
 package com.esports.msvc_registration.models.dtos;
 import lombok.*;
 import java.time.LocalDateTime;
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class InscripcionResponseDTO {
 
     private Long inscripcionId;

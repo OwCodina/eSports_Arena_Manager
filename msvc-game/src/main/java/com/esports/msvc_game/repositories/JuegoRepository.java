@@ -10,13 +10,8 @@ import java.util.Optional;
 @Repository
 public interface JuegoRepository extends JpaRepository<Juego, Long> {
 
-    /**
-     * Busca un juego por nombre exacto (para validar unicidad).
-     */
+
     Optional<Juego> findByNombre(String nombre);
 
-    /**
-     * Lista todos los juegos con un estado específico (ej: "ACTIVO").
-     */
     List<Juego> findByEstado(String estado);
 }

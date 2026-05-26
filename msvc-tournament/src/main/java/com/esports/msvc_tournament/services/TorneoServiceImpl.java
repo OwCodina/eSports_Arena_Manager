@@ -36,7 +36,6 @@ public class TorneoServiceImpl implements TorneoService {
 
     @Transactional(readOnly = true)
     @Override
-
     public List<TorneoResponseDTO> findAll() {
         return torneoRepository.findAll().stream().map(this::toResponse).toList();
     }
@@ -70,8 +69,8 @@ public class TorneoServiceImpl implements TorneoService {
     @Override
     public TorneoResponseDTO save(TorneoRequestDTO dto) {
         JuegoDTO juego;
-        try { juego = gameClient.findById(dto.getJuegoId()); }
-        catch (Exception e) {
+        try { juego = gameClient.findById(dto.getJuegoId());
+        } catch (Exception e) {
             throw new TournamentException("No se pudo verificar el juego con id: " + dto.getJuegoId());
         }
         if (!"ACTIVO".equals(juego.getEstado()))
@@ -84,10 +83,13 @@ public class TorneoServiceImpl implements TorneoService {
             throw new TournamentException("La fecha de fin debe ser posterior a la fecha de inicio.");
 
         Torneo t = new Torneo();
-        t.setNombre(dto.getNombre()); t.setJuegoId(dto.getJuegoId());
-        t.setFechaInicio(dto.getFechaInicio()); t.setFechaFin(dto.getFechaFin());
+        t.setNombre(dto.getNombre());
+        t.setJuegoId(dto.getJuegoId());
+        t.setFechaInicio(dto.getFechaInicio());
+        t.setFechaFin(dto.getFechaFin());
         t.setFechaCierreInscripcion(dto.getFechaCierreInscripcion());
-        t.setCupoMaximo(dto.getCupoMaximo()); t.setModalidad(dto.getModalidad());
+        t.setCupoMaximo(dto.getCupoMaximo());
+        t.setModalidad(dto.getModalidad());
         t.setEstado("BORRADOR");
 
         Torneo guardado = torneoRepository.save(t);

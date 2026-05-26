@@ -7,12 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * DTO de entrada para crear o actualizar un Juego.
- * Contiene solo los campos que el cliente puede enviar.
- * Las validaciones Bean Validation se aplican aquí, no en la entidad.
- */
-@Getter @Setter @NoArgsConstructor
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class JuegoRequestDTO {
 
     @NotBlank(message = "El nombre del juego no puede estar vacío")

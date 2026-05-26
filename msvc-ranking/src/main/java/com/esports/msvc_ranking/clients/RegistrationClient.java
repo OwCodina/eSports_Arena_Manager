@@ -9,7 +9,7 @@ import java.util.List;
 
 
 
-@FeignClient(name = "msvc-registration", url = "$http://localhost:8015")
+@FeignClient(name = "msvc-registration", url = "http://localhost:8015")
 public interface RegistrationClient {
 
     @GetMapping("/api/v1/inscripciones")

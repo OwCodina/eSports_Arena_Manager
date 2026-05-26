@@ -16,13 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+
 public class RankingServiceImpl implements RankingService {
 
     private static final Logger log = LoggerFactory.getLogger(RankingServiceImpl.class);
 
-    @Autowired private RankingRepository rankingRepository;
-    @Autowired private RegistrationClient registrationClient;
-    @Autowired private TournamentClient tournamentClient;
+    @Autowired
+    private RankingRepository rankingRepository;
+
+    @Autowired
+    private RegistrationClient registrationClient;
+
+    @Autowired
+    private TournamentClient tournamentClient;
 
     // ── Mapper ───────────────────────────────────────────────────
     private RankingResponseDTO toResponse(Ranking r) {

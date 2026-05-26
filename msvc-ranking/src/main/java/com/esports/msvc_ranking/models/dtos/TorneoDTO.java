@@ -6,11 +6,11 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-/**
- * DTO espejo de Torneo (msvc-tournament).
- * Usado para deserializar la respuesta del Feign client hacia tournament-service.
- */
-@Getter @Setter @NoArgsConstructor
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class TorneoDTO {
     private Long torneoId;
     private String nombre;

@@ -10,8 +10,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Torneo {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "torneo_id") private Long torneoId;
-    @Column(nullable = false) private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "torneo_id")
+    private Long torneoId;
+
+    @Column(nullable = false)
+    private String nombre;
+
     @Column(name = "juego_id", nullable = false)
     private Long juegoId;
 

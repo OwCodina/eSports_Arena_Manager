@@ -6,11 +6,11 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO espejo de Resultado (msvc-result).
- * Usado para deserializar la respuesta del Feign client hacia result-service.
- */
-@Getter @Setter @NoArgsConstructor
+
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class ResultadoDTO {
     private Long resultadoId;
     private Long partidaId;
