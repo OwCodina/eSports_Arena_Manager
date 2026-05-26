@@ -1,9 +1,10 @@
-package com.esports.msvc_prize.clients;
+package com.esports.msvc_ranking.clients;
 
-import com.esports.msvc_prize.models.dtos.TorneoDTO;
+import com.esports.msvc_ranking.models.dtos.TorneoDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 
 @FeignClient(name = "msvc-tournament", url = "http://localhost:8012")
 public interface TournamentClient {

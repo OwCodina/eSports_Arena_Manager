@@ -1,12 +1,8 @@
 package com.esports.msvc_ranking.models.dtos;
 import lombok.*;
 import java.time.LocalDateTime;
-
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class RankingResponseDTO {
-
     private Long rankingId;
     private Long torneoId;
     private Long participanteId;
