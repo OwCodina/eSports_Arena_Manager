@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Map;
 
 
-@FeignClient(name = "msvc-tournament", url = "${msvc.tournament.url}")
+@FeignClient(name = "msvc-tournament", url = "http://localhost:8012")
 public interface TournamentClient {
 
     @GetMapping("/api/v1/torneos/{id}")

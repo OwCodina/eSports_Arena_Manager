@@ -12,7 +12,11 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Embeddable
-@Getter @Setter @NoArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+
 public class Audit {
 
     @Column(name = "created_at")

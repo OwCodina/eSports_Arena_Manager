@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@FeignClient(name = "msvc-registration", url = "${msvc.registration.url}")
+@FeignClient(name = "msvc-registration", url = "http://localhost:8015")
 public interface RegistrationClient {
 
     @GetMapping("/api/v1/inscripciones")
