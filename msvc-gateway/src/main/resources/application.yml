@@ -1,0 +1,197 @@
+spring:
+  application:
+    name: msvc-gateway
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          # Cada ruta: si la URL entra por el patron 'predicates', el gateway la reenvia
+          # a 'uri'. lb:// significa "busca este nombre en Eureka y balancea la carga".
+          routes:
+
+
+            - id: msvc-game
+              uri: lb://msvc-game
+              predicates:
+                - Path=/api/v1/juegos/**,/api/v2/juegos/**
+
+            - id: msvc-user
+              uri: lb://msvc-user
+              predicates:
+                - Path=/api/v1/usuarios/**,/api/v2/usuarios/**
+
+            - id: msvc-notification
+              uri: lb://msvc-notification
+              predicates:
+                - Path=/api/v1/notificaciones/**,/api/v2/notificaciones/**
+
+
+            - id: msvc-tournament
+              uri: lb://msvc-tournament
+              predicates:
+                - Path=/api/v1/torneos/**,/api/v2/torneos/**
+
+            - id: msvc-sanction
+              uri: lb://msvc-sanction
+              predicates:
+                - Path=/api/v1/sanciones/**,/api/v2/sanciones/**
+
+
+            - id: msvc-team
+              uri: lb://msvc-team
+              predicates:
+                - Path=/api/v1/equipos/**,/api/v2/equipos/**
+
+            - id: msvc-registration
+              uri: lb://msvc-registration
+              predicates:
+                - Path=/api/v1/inscripciones/**,/api/v2/inscripciones/**
+
+
+            - id: msvc-match
+              uri: lb://msvc-match
+              predicates:
+                - Path=/api/v1/partidas/**,/api/v2/partidas/**
+
+            - id: msvc-result
+              uri: lb://msvc-result
+              predicates:
+                - Path=/api/v1/resultados/**,/api/v2/resultados/**
+
+
+            - id: msvc-ranking
+              uri: lb://msvc-ranking
+              predicates:
+                - Path=/api/v1/rankings/**,/api/v2/rankings/**
+
+            - id: msvc-prize
+              uri: lb://msvc-prize
+              predicates:
+                - Path=/api/v1/premios/**,/api/v2/premios/**
+
+            # Rutas para el OpenAPI (JSON) de cada microservicio. El Swagger UI del gateway
+            # las consume. Usan el prefijo /api-docs/<svc> (NO /v3/api-docs) para no chocar con
+            # el /v3/api-docs propio del gateway.
+            # RewritePath lo traduce al /v3/api-docs
+
+            - id: game-api-docs
+              uri: lb://msvc-game
+              predicates:
+                - Path=/api-docs/game
+              filters:
+                - RewritePath=/api-docs/game, /v3/api-docs
+
+            - id: user-api-docs
+              uri: lb://msvc-user
+              predicates:
+                - Path=/api-docs/user
+              filters:
+                - RewritePath=/api-docs/user, /v3/api-docs
+
+            - id: notification-api-docs
+              uri: lb://msvc-notification
+              predicates:
+                - Path=/api-docs/notification
+              filters:
+                - RewritePath=/api-docs/notification, /v3/api-docs
+
+            - id: tournament-api-docs
+              uri: lb://msvc-tournament
+              predicates:
+                - Path=/api-docs/tournament
+              filters:
+                - RewritePath=/api-docs/tournament, /v3/api-docs
+
+            - id: sanction-api-docs
+              uri: lb://msvc-sanction
+              predicates:
+                - Path=/api-docs/sanction
+              filters:
+                - RewritePath=/api-docs/sanction, /v3/api-docs
+
+            - id: team-api-docs
+              uri: lb://msvc-team
+              predicates:
+                - Path=/api-docs/team
+              filters:
+                - RewritePath=/api-docs/team, /v3/api-docs
+
+            - id: registration-api-docs
+              uri: lb://msvc-registration
+              predicates:
+                - Path=/api-docs/registration
+              filters:
+                - RewritePath=/api-docs/registration, /v3/api-docs
+
+            - id: match-api-docs
+              uri: lb://msvc-match
+              predicates:
+                - Path=/api-docs/match
+              filters:
+                - RewritePath=/api-docs/match, /v3/api-docs
+
+            - id: result-api-docs
+              uri: lb://msvc-result
+              predicates:
+                - Path=/api-docs/result
+              filters:
+                - RewritePath=/api-docs/result, /v3/api-docs
+
+            - id: ranking-api-docs
+              uri: lb://msvc-ranking
+              predicates:
+                - Path=/api-docs/ranking
+              filters:
+                - RewritePath=/api-docs/ranking, /v3/api-docs
+
+            - id: prize-api-docs
+              uri: lb://msvc-prize
+              predicates:
+                - Path=/api-docs/prize
+              filters:
+                - RewritePath=/api-docs/prize, /v3/api-docs
+
+# Punto de entrada unico: todo el trafico entra por aqui.
+server:
+  port: 8080
+
+# El gateway tambien es cliente Eureka para poder resolver los lb://
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Swagger UI agregado: una sola pagina con un desplegable para elegir el microservicio.
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /docs/swagger-ui.html
+    # El desplegable apunta a los docs de cada servicio (ruteados por el gateway via lb:
+    urls:
+      - name: "Juegos (game)"
+        url: /api-docs/game
+      - name: "Usuarios (user)"
+        url: /api-docs/user
+      - name: "Notificaciones (notification)"
+        url: /api-docs/notification
+      - name: "Torneos (tournament)"
+        url: /api-docs/tournament
+      - name: "Sanciones (sanction)"
+        url: /api-docs/sanction
+      - name: "Equipos (team)"
+        url: /api-docs/team
+      - name: "Inscripciones (registration)"
+        url: /api-docs/registration
+      - name: "Partidas (match)"
+        url: /api-docs/match
+      - name: "Resultados (result)"
+        url: /api-docs/result
+      - name: "Rankings (ranking)"
+        url: /api-docs/ranking
+      - name: "Premios (prize)"
+        url: /api-docs/prize
+
+

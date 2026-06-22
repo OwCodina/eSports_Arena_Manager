@@ -23,6 +23,9 @@
 
     <packaging>pom</packaging>
     <modules>
+        <module>msvc-eureka</module>
+        <module>msvc-gateway</module>
+
         <module>msvc-game</module>
         <module>msvc-user</module>
         <module>msvc-tournament</module>
@@ -34,7 +37,7 @@
         <module>msvc-ranking</module>
         <module>msvc-prize</module>
         <module>msvc-notification</module>
-        <!-- Se irán agregando los demás microservicios -->
+
     </modules>
 
 </project>

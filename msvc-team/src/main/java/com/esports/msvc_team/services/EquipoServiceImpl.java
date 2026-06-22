@@ -84,7 +84,8 @@ public class EquipoServiceImpl implements EquipoService {
         findById(equipoId);
         return miembroEquipoRepository.findByEquipoId(equipoId);
     }
-    @Transactional @Override
+
+        @Transactional @Override
     public MiembroEquipo agregarMiembro(Long equipoId, MiembroRequestDTO dto) {
         Equipo equipo = equipoRepository.findById(equipoId).orElseThrow(() -> new TeamException("Equipo con id: " + equipoId + " no encontrado"));
         if (!"ACTIVO".equals(equipo.getEstado())) throw new TeamException("No se pueden agregar miembros a un equipo INACTIVO.");
