@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Endpoints PUBLICOS de autenticacion: registrarse e iniciar sesion.
- * Ambos devuelven un JWT firmado que el cliente usara en el resto del sistema.
- */
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @Tag(name = "Autenticacion", description = "Registro y login. Devuelve el JWT que usa el resto del sistema.")

@@ -10,18 +10,6 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Cuenta de acceso (credenciales) para el sistema eSports Arena Manager.
- *
- * Modelo segun el caso semestral:
- *   CuentaAcceso(id, email, passwordHash, rol, estado, fechaCreacion)
- *
- * Un usuario puede tener uno o mas roles: la relacion es muchos-a-muchos
- * mediante la tabla intermedia 'usuario_roles'.
- *
- * El nickname NO vive aqui: pertenece al perfil de usuario en msvc-user.
- * Aqui solo guardamos email + password (BCrypt) + roles + estado.
- */
 @Entity
 @Table(name = "cuentas_acceso")
 @Getter @Setter @NoArgsConstructor @ToString

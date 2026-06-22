@@ -6,13 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Repositorio de roles. Hereda los metodos CRUD de JpaRepository.
- */
+
 @Repository
 public interface RolRepository extends JpaRepository<Rol, Long> {
 
-    /** Busca un rol por su nombre (ej: "ROLE_ADMINISTRADOR"). Lo usan register y el seed. */
     Optional<Rol> findByNombre(String nombre);
 
 }

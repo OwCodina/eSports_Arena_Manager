@@ -22,21 +22,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-/**
- * Seguridad de msvc-user: es un "Resource Server".
- *
- * No emite tokens (eso lo hace msvc-auth). Solo RECIBE peticiones con un JWT en
- * "Authorization: Bearer <token>", lo valida (misma clave secreta compartida) y
- * autoriza segun el rol. Asi, aunque alguien llame directo al puerto 8011 sin
- * pasar por el gateway, sigue protegido (defensa en profundidad).
- *
- * Reglas de acceso (alineadas al caso semestral):
- *  - docs/swagger/h2-console: publicos (para la demo)
- *  - POST /api/v1/usuarios: publico (registro: msvc-auth lo llama al crear cuenta)
- *  - GET /api/v1/usuarios/**: cualquier rol autenticado (ADMIN, ORGANIZADOR, JUGADOR)
- *  - PUT/PATCH/DELETE /api/v1/usuarios/**: solo ADMIN
- *  - resto: autenticado
- */
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {

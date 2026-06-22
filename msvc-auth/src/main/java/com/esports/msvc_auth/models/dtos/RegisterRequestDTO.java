@@ -10,14 +10,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Datos para registrar una cuenta de acceso.
- *
- * Los roles se envian como un Set de strings (ej: ["ADMINISTRADOR"] o
- * ["JUGADOR", "ORGANIZADOR"]). Se normalizan a ROLE_X.
- *
- * nombre y nickname se reenvian a msvc-user para crear el perfil alli.
- */
+
 @Getter @Setter @NoArgsConstructor
 public class RegisterRequestDTO {
 

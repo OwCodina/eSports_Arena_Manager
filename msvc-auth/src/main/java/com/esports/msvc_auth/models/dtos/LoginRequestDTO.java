@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Datos para iniciar sesion. El login se hace por email + password.
- */
+
 @Getter @Setter @NoArgsConstructor
 public class LoginRequestDTO {
 

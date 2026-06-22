@@ -11,13 +11,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * Genera (FIRMA) el JWT que el resto del sistema validara.
- *
- * El claim "roles" contiene la lista de nombres de todos los roles de la cuenta
- * (ej: ["ROLE_ADMINISTRADOR", "ROLE_ORGANIZADOR"]). El JwtAuthenticationConverter
- * del gateway y de msvc-user los lee y los convierte en authorities.
- */
+
 @Service
 public class JwtService {
 

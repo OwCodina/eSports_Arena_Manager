@@ -13,16 +13,12 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Manejo centralizado de excepciones para msvc-auth.
- * Devuelve errores como JSON estructurado en vez de trazas crudas.
- */
+
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
-    /** Errores de validacion @Valid -> 400 con mapa campo -> mensaje. */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -33,7 +29,7 @@ public class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    /** Errores de negocio lanzados con ResponseStatusException (401/403/404/409...). */
+
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, String>> handleResponseStatus(ResponseStatusException ex) {
         log.warn("ResponseStatusException: {} {}", ex.getStatusCode(), ex.getReason());
@@ -42,7 +38,6 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(ex.getStatusCode()).body(error);
     }
 
-    /** Fallback para cualquier otro error -> 500. */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneric(Exception ex) {
         log.error("Error inesperado en msvc-auth", ex);

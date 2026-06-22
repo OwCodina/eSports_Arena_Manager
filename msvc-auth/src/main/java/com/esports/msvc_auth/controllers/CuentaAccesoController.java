@@ -14,18 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * CRUD de cuentas de acceso (protegido, solo ADMINISTRADOR).
- *
- * Cumple el CRUD obligatorio del caso semestral:
- *  - Listar cuentas por rol o estado
- *  - Buscar cuenta por ID o por correo
- *  - Actualizar password, roles o estado
- *  - Desactivar cuenta (sin borrar info deportiva)
- *
- * Crear cuenta = POST /api/v1/auth/register (publico, en AuthController).
- * Todas las respuestas usan AuthResponse (token=null para los de gestion).
- */
 @RestController
 @RequestMapping("/api/v1/cuentas")
 @Tag(name = "Cuentas de acceso", description = "CRUD de cuentas de acceso (requiere rol ADMINISTRADOR).")
