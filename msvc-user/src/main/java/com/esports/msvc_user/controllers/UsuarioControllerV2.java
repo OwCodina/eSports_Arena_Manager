@@ -18,10 +18,8 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Map;
 
@@ -171,10 +169,10 @@ public class UsuarioControllerV2 {
             @ApiResponse(responseCode = "200", description = "Activo / Inactivo "),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    public ResponseEntity<Map<String, Boolean>> puedeCompetitr(
+    public ResponseEntity<Map<String, Boolean>> puedeCompetir(
             @Parameter(description = "Id del usuario a buscar", required = true, example = "1")
             @PathVariable Long id) {
-        return ResponseEntity.ok(Map.of("puedeCompetitr", usuarioService.puedeCompetitr(id)));
+        return ResponseEntity.ok(Map.of("puedeCompetir", usuarioService.puedeCompetir(id)));
     }
 
 

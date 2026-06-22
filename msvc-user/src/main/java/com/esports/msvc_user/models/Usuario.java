@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name = "usuarios")
 @Getter @Setter @ToString @NoArgsConstructor
@@ -33,7 +34,7 @@ public class Usuario {
     @Column(nullable = false)
     private String estado;
 
-    @Column(name = "fecha_registro", nullable = false)
+    @Column(name = "fecha_registro", nullable = false, updatable = false)
     private LocalDate fechaRegistro;
 
     @Embedded

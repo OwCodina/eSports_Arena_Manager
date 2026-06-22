@@ -132,7 +132,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Transactional(readOnly = true)
     @Override
-    public boolean puedeCompetitr(Long id) {
+    public boolean puedeCompetir(Long id) {
         Usuario u = usuarioRepository.findById(id)
                 .orElseThrow(() -> new UserException("Usuario con id: " + id + " no encontrado"));
         return "ACTIVO".equals(u.getEstado());

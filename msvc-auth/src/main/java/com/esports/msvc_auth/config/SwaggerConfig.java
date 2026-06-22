@@ -1,4 +1,4 @@
-package com.esports.msvc_user.config;
+package com.esports.msvc_auth.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -18,9 +18,9 @@ public class SwaggerConfig {
     public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("API User - eSports Arena Manager")
+                        .title("API Auth - eSports Arena Manager")
                         .version("1.0")
-                        .description("Documentacion de la API de gestion de usuarios (perfiles de jugadores, organizadores y administradores)."))
+                        .description("Registro, login y emision de JWT. CRUD de cuentas de acceso."))
                 .components(new Components().addSecuritySchemes(ESQUEMA,
                         new SecurityScheme()
                                 .type(SecurityScheme.Type.HTTP)

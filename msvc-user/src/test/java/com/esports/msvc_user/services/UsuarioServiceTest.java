@@ -222,7 +222,7 @@ public class UsuarioServiceTest {
         verify(usuarioRepository, times(1)).save(this.usuarioPrueba);
     }
 
-    // ── puedeCompetitr ────────────────────────────────────────────
+    // ── puedeCompetir ────────────────────────────────────────────
 
     @Test
     @DisplayName("Debe retornar true cuando usuario está ACTIVO")
@@ -230,7 +230,7 @@ public class UsuarioServiceTest {
         // Given
         when(this.usuarioRepository.findById(1L)).thenReturn(Optional.of(this.usuarioPrueba));
         // When + Then
-        assertThat(this.usuarioService.puedeCompetitr(1L)).isTrue();
+        assertThat(this.usuarioService.puedeCompetir(1L)).isTrue();
     }
 
     @Test
@@ -240,6 +240,6 @@ public class UsuarioServiceTest {
         this.usuarioPrueba.setEstado("INACTIVO");
         when(this.usuarioRepository.findById(1L)).thenReturn(Optional.of(this.usuarioPrueba));
         // When + Then
-        assertThat(this.usuarioService.puedeCompetitr(1L)).isFalse();
+        assertThat(this.usuarioService.puedeCompetir(1L)).isFalse();
     }
 }

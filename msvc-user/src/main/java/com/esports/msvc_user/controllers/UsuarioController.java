@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -110,8 +109,8 @@ public class UsuarioController {
             @ApiResponse(responseCode = "200", description = "Activo / Inactivo "),
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
-    public ResponseEntity<Map<String, Boolean>> puedeCompetitr(@PathVariable Long id) {
-        return ResponseEntity.ok(Map.of("puedeCompetitr", usuarioService.puedeCompetitr(id)));
+    public ResponseEntity<Map<String, Boolean>> puedeCompetir(@PathVariable Long id) {
+        return ResponseEntity.ok(Map.of("puedeCompetir", usuarioService.puedeCompetir(id)));
     }
 
     @PostMapping

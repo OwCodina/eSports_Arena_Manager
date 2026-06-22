@@ -26,6 +26,7 @@
         <module>msvc-eureka</module>
         <module>msvc-gateway</module>
 
+        <module>msvc-auth</module>
         <module>msvc-game</module>
         <module>msvc-user</module>
         <module>msvc-tournament</module>

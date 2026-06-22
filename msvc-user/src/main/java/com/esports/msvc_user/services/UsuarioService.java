@@ -15,5 +15,5 @@ public interface UsuarioService {
     UsuarioResponseDTO save(UsuarioRequestDTO dto);
     UsuarioResponseDTO updateById(Long id, UsuarioRequestDTO dto);
     UsuarioResponseDTO desactivar(Long id);
-    boolean puedeCompetitr(Long id);
+    boolean puedeCompetir(Long id);
 }

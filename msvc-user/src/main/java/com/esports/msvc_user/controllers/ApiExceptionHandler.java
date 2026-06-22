@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
@@ -23,10 +24,20 @@ public class ApiExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         for (FieldError fieldError : ex.getBindingResult().getFieldErrors()) {
             errors.put(fieldError.getField(), fieldError.getDefaultMessage());
-            log.warn("Validación fallida - campo: {}, mensaje: {}", fieldError.getField(), fieldError.getDefaultMessage());
+            log.warn("Validacion fallida - campo: {}, mensaje: {}", fieldError.getField(), fieldError.getDefaultMessage());
         }
         return ResponseEntity.badRequest().body(errors);
     }
+
+
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<Map<String, String>> handleConflict(UserException ex) {
+        log.warn("Conflicto: {}", ex.getMessage());
+        Map<String, String> error = new HashMap<>();
+        error.put("error", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<Map<String, String>> handleUserException(UserException ex) {

@@ -10,6 +10,10 @@ spring:
           # a 'uri'. lb:// significa "busca este nombre en Eureka y balancea la carga".
           routes:
 
+            - id: msvc-auth
+              uri: lb://msvc-auth
+              predicates:
+                - Path=/api/v1/auth/**,/api/v1/cuentas/**
 
             - id: msvc-game
               uri: lb://msvc-game
@@ -88,6 +92,13 @@ spring:
                 - Path=/api-docs/user
               filters:
                 - RewritePath=/api-docs/user, /v3/api-docs
+
+            - id: auth-api-docs
+              uri: lb://msvc-auth
+              predicates:
+                - Path=/api-docs/auth
+              filters:
+                - RewritePath=/api-docs/auth, /v3/api-docs
 
             - id: notification-api-docs
               uri: lb://msvc-notification
@@ -175,6 +186,8 @@ springdoc:
         url: /api-docs/game
       - name: "Usuarios (user)"
         url: /api-docs/user
+      - name: "Autenticacion (auth)"
+        url: /api-docs/auth
       - name: "Notificaciones (notification)"
         url: /api-docs/notification
       - name: "Torneos (tournament)"
@@ -194,4 +207,6 @@ springdoc:
       - name: "Premios (prize)"
         url: /api-docs/prize
 
+jwt:
+  secret: clave-secreta-super-segura-para-jwt-esports-arena-manager-2026
 
