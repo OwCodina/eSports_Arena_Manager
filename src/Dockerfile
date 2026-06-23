@@ -1,15 +1,13 @@
-# ── Etapa 1: BUILD ─────────────────────────────────────────────────────────────
-# Context = raíz del proyecto (donde está el pom.xml padre).
-# ARG MODULE_NAME recibe el nombre del módulo desde docker-compose.
+
 FROM maven:3.9-eclipse-temurin-21 AS build
 
 ARG MODULE_NAME
 WORKDIR /app
 
-# Copiar el pom.xml raíz primero (resuelve el <parent> de cada módulo)
+
 COPY pom.xml .
 
-# Copiar todos los módulos (Maven necesita ver la estructura multi-módulo)
+
 COPY msvc-eureka/pom.xml       ./msvc-eureka/pom.xml
 COPY msvc-gateway/pom.xml      ./msvc-gateway/pom.xml
 COPY msvc-auth/pom.xml         ./msvc-auth/pom.xml
@@ -25,13 +23,12 @@ COPY msvc-ranking/pom.xml      ./msvc-ranking/pom.xml
 COPY msvc-prize/pom.xml        ./msvc-prize/pom.xml
 COPY msvc-notification/pom.xml ./msvc-notification/pom.xml
 
-# Descargar dependencias usando la estructura completa (mejor caché)
 RUN mvn dependency:go-offline -pl ${MODULE_NAME} -am -B -q 2>/dev/null || true
 
-# Copiar solo el código fuente del módulo a compilar
+
 COPY ${MODULE_NAME}/src ./${MODULE_NAME}/src
 
-# Compilar solo ese módulo y sus dependencias padre (-am = also make)
+
 RUN mvn package -pl ${MODULE_NAME} -am -DskipTests -B -q
 
 # ── Etapa 2: RUNTIME ───────────────────────────────────────────────────────────
