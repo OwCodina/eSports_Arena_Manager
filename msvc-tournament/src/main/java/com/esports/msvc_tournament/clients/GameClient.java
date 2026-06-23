@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@FeignClient(name = "msvc-game", url = "http://localhost:8010")
+@FeignClient(name = "msvc-game", url = "${msvc.game.url}")
 public interface GameClient {
 
     @GetMapping("/api/v1/juegos/{id}")

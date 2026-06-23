@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@FeignClient(name = "msvc-result", url = "http://localhost:8017")
+@FeignClient(name = "msvc-result", url = "${msvc.result.url}")
 public interface ResultClient {
 
     @GetMapping("/api/v1/resultados")

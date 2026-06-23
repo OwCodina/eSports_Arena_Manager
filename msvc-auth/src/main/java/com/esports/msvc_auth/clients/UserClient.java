@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Map;
 
 
-@FeignClient(name = "msvc-user", url = "http://localhost:8011/api/v2/usuarios")
+@FeignClient(name = "msvc-user", url = "${msvc.user.url}")
 public interface UserClient {
 
     @PostMapping

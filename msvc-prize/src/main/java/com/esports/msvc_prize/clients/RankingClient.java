@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 
-@FeignClient(name = "msvc-ranking", url = "http://localhost:8018")
+@FeignClient(name = "msvc-ranking", url = "${msvc.ranking.url}")
 public interface RankingClient {
 
     @GetMapping("/api/v1/rankings/torneo/{torneoId}")
